@@ -14,7 +14,6 @@ import KeychainAccess
 
 class APIManager: SessionManager {
     
-    // MARK: TODO: Add App Keys
     static let consumerKey = "7Y1jhGrqRlWieXW2HW5jrDkoQ"
     static let consumerSecret = "TEHc7UMUeeB5pCVt63ynK6Msqzta7c57BQhlDsXa1AVaOZKbWw"
 
