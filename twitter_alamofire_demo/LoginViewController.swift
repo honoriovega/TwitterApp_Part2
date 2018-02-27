@@ -24,7 +24,6 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
     @IBAction func didTapLogin(_ sender: Any) {
         APIManager.shared.login(success: {
             self.performSegue(withIdentifier: "loginSegue", sender: nil)
