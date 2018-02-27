@@ -9,11 +9,20 @@
 import Foundation
 
 class User {
-    
+    // MARK: Properties
     var name: String
+    var screenName: String?
+    var profileImageLink: String?
+    // Add any additional properties here
+
+    static var current: User?
+    
     
     init(dictionary: [String: Any]) {
         name = dictionary["name"] as! String
+        screenName = dictionary["screen_name"] as? String
+        profileImageLink = dictionary["profile_image_url_https"] as? String
+        // Initialize any other properties
 
     }
 }
