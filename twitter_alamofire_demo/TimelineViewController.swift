@@ -11,11 +11,19 @@ import UIKit
 class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var tweets: [Tweet] = []
+    // Initialize a UIRefreshControl
+    let refreshControl = UIRefreshControl()
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+     
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+
+        // add refresh control to table view
+        tableView.insertSubview(refreshControl, at: 0)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -23,10 +31,17 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         
+        getTweets()
+    }
+    
+    func getTweets() {
+        print("called")
         APIManager.shared.getHomeTimeLine { (tweets, error) in
             if let tweets = tweets {
                 self.tweets = tweets
                 self.tableView.reloadData()
+                // Tell the refreshControl to stop spinning
+                self.refreshControl.endRefreshing()
             } else if let error = error {
                 print("Error getting home timeline: " + error.localizedDescription)
             }
@@ -41,7 +56,6 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         
         cell.tweet = tweets[indexPath.row]
-        
         return cell
     }
     
@@ -60,14 +74,9 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+
+        getTweets()
+    }
     
 }
