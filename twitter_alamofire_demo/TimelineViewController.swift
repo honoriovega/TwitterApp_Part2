@@ -8,14 +8,19 @@
 
 import UIKit
 
-class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ComposeViewControllerDelegate {
+    
+    func did(post: Tweet) {
+        getTweets()
+    }
+    
     
     var tweets: [Tweet] = []
     // Initialize a UIRefreshControl
     let refreshControl = UIRefreshControl()
     
     @IBOutlet weak var tableView: UITableView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,6 +76,27 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func didTapLogout(_ sender: Any) {
         APIManager.shared.logout()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let composeViewController = segue.destination as? ComposeViewController {
+//            composeViewController.delegate = self
+//
+//        }
+        
+        if let detailViewController = segue.destination as? DetailTweetViewController {
+            let cell = sender as! UITableViewCell
+            if let indexPath = tableView.indexPath(for: cell) {
+                let tweet = tweets[indexPath.row]
+                detailViewController.tweet = tweet
+            }
+        }
+
+        
+    }
+    @IBAction func didTapNew(_ sender: Any) {
+        self.performSegue(withIdentifier: "composeSegue", sender: self)
+
     }
     
     
