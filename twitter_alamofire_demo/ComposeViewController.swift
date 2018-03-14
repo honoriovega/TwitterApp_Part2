@@ -70,6 +70,8 @@ class ComposeViewController: UIViewController,UITextViewDelegate {
         let text = tweetTextView.text as! String
         tweetCharacterCount.text = "\(140 - text.count)"
         print(textView.text); //the textView parameter is the textView where text was changed
+        
+    
     }
     
   

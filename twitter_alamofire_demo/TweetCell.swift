@@ -93,7 +93,7 @@ class TweetCell: UITableViewCell {
     
     @IBAction func didTapRetweet(_ sender: Any) {
         
-    
+       
         if(tweet.retweeted) {
 
             APIManager.shared.unretweet(tweet) { (tweet: Tweet?, error: Error?) in
@@ -127,6 +127,7 @@ class TweetCell: UITableViewCell {
     
     
     @IBAction func didTapReply(_ sender: Any) {
+        
     }
     
     

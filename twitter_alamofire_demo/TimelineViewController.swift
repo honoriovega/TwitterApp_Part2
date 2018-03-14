@@ -79,10 +79,27 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("boi i ran")
 //        if let composeViewController = segue.destination as? ComposeViewController {
 //            composeViewController.delegate = self
 //
 //        }
+        
+
+        if let replyViewController = segue.destination as? ReplyViewController {
+    
+            
+            if let cell = (sender! as AnyObject).superview??.superview as? TweetCell {
+                let indexPath = tableView.indexPath(for: cell)
+                let tweet = tweets[(indexPath?.row)!]
+                
+                replyViewController.to = tweet.user.name
+
+            }
+      
+        }
+
+
         
         if let detailViewController = segue.destination as? DetailTweetViewController {
             let cell = sender as! UITableViewCell

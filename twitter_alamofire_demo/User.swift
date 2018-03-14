@@ -13,6 +13,16 @@ class User {
     var name: String
     var screenName: String?
     var profileImageLink: String?
+    var description: String?
+    var id: Int?
+    var followerCount : Int
+    var friends_count: Int
+    var numOfTweets: Int
+    var profileBackgroundURL : String?
+
+//    "statuses_count": 3121,
+
+    
     // Add any additional properties here
 
     //static var current: User?
@@ -44,11 +54,18 @@ class User {
     
     init(dictionary: [String: Any]) {
         self.dictionary = dictionary
+     
 
         name = dictionary["name"] as! String
         screenName = dictionary["screen_name"] as? String
         profileImageLink = dictionary["profile_image_url_https"] as? String
+        description = dictionary["description"] as? String
+        id = dictionary["id"] as! Int
+        description = dictionary["description"] as! String
         // Initialize any other properties
-
+        followerCount  = dictionary["following"] as! Int
+        friends_count = dictionary["followers_count"] as! Int
+        numOfTweets = dictionary["statuses_count"] as! Int
+        profileBackgroundURL = dictionary["profile_background_image_url_https"] as? String
     }
 }
